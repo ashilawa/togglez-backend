@@ -1,5 +1,8 @@
 package com.citiustech.controller;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.togglz.core.Feature;
 import org.togglz.core.manager.FeatureManager;
 import org.togglz.core.util.NamedFeature;
+
+import com.citiustech.dto.FeatureDto;
 
 @RestController
 public class TogglezController {
@@ -35,14 +40,18 @@ public class TogglezController {
     }
 	// http://localhost:8080/togglz-console/index
 
-	@GetMapping(value = "/enabled")
-	public String getDemoSomeService() {
+	@GetMapping(value = "/getAllFeatures")
+	public ResponseEntity<Set<FeatureDto>> getAllFeatures() {
+		Set<FeatureDto> set = new HashSet<>();
+		manager.getFeatures().stream().forEach(feature -> {
+			FeatureDto dto = new FeatureDto();
+			dto.setName(feature.name());
+			dto.setEnabled(manager.getFeatureState(feature).isEnabled());
+			dto.setActive(manager.isActive(feature));
+			set.add(dto);
+		});
 
-//		if (manager.isActive(Features.SERVICE_A)) {
-//			return "ertsert";
-//		}
-
-		return "serviceA";
+		return ResponseEntity.ok(set);
 	}
 
 }
