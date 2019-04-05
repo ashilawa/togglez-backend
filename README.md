@@ -2,23 +2,6 @@
 
 Spring Boot + Togglz demo accompanying source code for blog post at http://tech.asimio.net/2018/05/31/Adding-Feature-Toggles-to-Spring-Boot-applications-using-Togglz.html
 
-### Requirements ###
-
-* Java 8
-* Maven 3.2.x
-
-### Building the artifact ###
-
-```
-mvn clean package
-```
-
-### Running the application from command line ###
-
-```
-mvn spring-boot:run
-```
-
 ### Available URLs
 
 ```
@@ -32,3 +15,34 @@ should result in successful responses.
 
 * orlando.otero at asimio dot net
 * https://www.linkedin.com/in/ootero
+
+
+## Spring MVC actuator endpoints available via /admin/info, /admin/health, ...
+#server.servlet-path: /
+#management:
+#  context-path: /admin
+#  security:
+#    enabled: false
+#
+#endpoints:
+#  enabled: false
+#  info:
+#    enabled: true
+#  health:
+#    enabled: true
+#  beans:
+#    enabled: true
+#
+#togglz:
+##  enabled: true # Enabled by default
+##  featureEnums:
+##    com.citiustech.config.FeatureToggles
+#  features:
+#    TEXT_BASED_SEARCH_VIA_ELASTIC_SEARCH:
+#      enabled: true
+#    CONTENT_RETRIEVAL_VIA_CMS:
+#      enabled: false
+#    USE_NEW_SOMESERVICE:
+#      enabled: true
+#
+

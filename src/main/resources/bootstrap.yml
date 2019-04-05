@@ -1,3 +1,0 @@
-spring:
-  application:
-    name: springboot-feature-flagging-togglz
